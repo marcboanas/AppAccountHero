@@ -1,17 +1,70 @@
-<ul>
-    <li><%= link_to "Home", root_path %></li>
-    
-    <% if signed_in? %>
-    
-    <li><%= link_to "Users", users_path %></li>
-    <li><%= link_to "Profile", current_user %></li>
-    <li><%= link_to "Settings", edit_user_path(current_user) %></li>
-    <li><%= link_to "Sign out", signout_path, method: "delete" %></li>  
-    
-    <% else %>
-    
-    <li><%= link_to "Sign in", signin_path %></li>     
+<% if signed_in? %>
 
+<div class="topMenu">
+
+<div class="button">Premium</div>
+    
+<div class="tabTop"><i class="icon-reorder large white"></i></div>
+        
+<div class="textTop"><i class="icon-user large"></i><%= " " + current_user.name.titleize %></div>
+    
+</div>
+
+<div class="navBar">
+
+    <div class="searchForm">
+    <input type="text" class="searchbox" placeholder="Search help topics"></input>
+    <button class="search"><i class="icon-search"></i></button>
+    </div>
+    
+    <div class="topnavTopics">
+   
+    <a id="sideDashboard">Dashboard</a> |
+
+    <a id="sideIncome">Add New Income</a> |
+    
+    <a id="sideExpenses">Add New Expenses</a> |
+    
+    <a id="sideClients">Add New Clients</a> |
+    
+    <a id="sideReceipts">View Receipts</a> |
+    
+    <a id="sideReports">View Year-End Accounts</a>
+    
+    </div>
+
+</div>
+
+<div class="dropMenu">
+
+    <%= link_to( root_path ) do %>
+    
+    <div class="menuOption">Home</div>
+    
     <% end %>
+    
+    <%= link_to( current_user ) do %>
+    
+    <div class="menuOption">Profile</div>
+    
+    <% end %>
+    
+    <%= link_to( edit_user_path(current_user) ) do %>
+    
+    <div class="menuOption">Settings</div>
+    
+    <% end %>
+    
+    <%= link_to( signout_path, method: "delete" ) do %>
+        
+    <div class="menuOption last">Logout</div>
+    
+    <% end %>
+    
+</div>
 
-</ul>
+<% else %>
+    
+<li><%= link_to "Sign in", signin_path %></li>     
+
+<% end %>

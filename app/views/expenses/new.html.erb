@@ -1,0 +1,13 @@
+<%= form_for @expense, :remote => false, :html => { :multipart => true } do |f| %>
+ 
+ <%= f.text_field :amount, :placeholder => "Amount" %>
+ 
+ <%= @expense.receipt.url %>
+ <%= image_tag @expense.receipt.url(:medium) %>
+ <%= image_tag @expense.receipt.url(:thumb) %>
+      
+ <%= f.file_field :receipt %>
+ 
+ <%= f.submit "Add Income", class: "" %>
+  
+<% end %>

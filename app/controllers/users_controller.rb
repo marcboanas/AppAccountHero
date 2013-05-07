@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     
   def show
       @user = User.find(params[:id])
+      @income = Income.new(params[:income])
   end
     
   def index

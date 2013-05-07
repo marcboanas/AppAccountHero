@@ -1,20 +1,82 @@
-<% provide(:title, "Edit user") %> 
-<h1>Update your profile</h1>
+<% provide(:title, 'Settings') %>
 
-    <%= form_for(@user) do |f| %>
-      <%= render 'shared/error_messages' %>
+<div class="settingsContainer">
 
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+<div class="settings">
 
-      <%= f.label :email %>
-      <%= f.text_field :email %>
+    <div class="settingsMenu">
 
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+        <div class="settingsmenuOption"><div class="menuText">Account Summary</div></div>
+        <div class="settingsmenuOption"><div class="menuText">Personal Settings</div></div>
+        <div class="settingsmenuOption active"><div class="menuText active">Change Settings</div></div>
+        <div class="settingsmenuOption"><div class="menuText">Upgrade Account</div></div>
+    </div>
 
-      <%= f.label :password_confirmation, "Confirm Password" %>
-      <%= f.password_field :password_confirmation %>
+    <div class="settingsContent">
+    
+    <h1>Account Summary</h1>
+    
+    <%= form_for @user, :html => { :multipart => true } do |f| %>
 
-      <%= f.submit "Save changes", class: "" %>
+    <%= render 'shared/error_messages' %>
+    
+    <div class="line"></div>
+    
+    <div class="settingTitle"><b>Name</b></div>
+    
+    <div class="settingformItem">
+    
+    <%= f.text_field :name %>
+    
+    </div>
+    
+    <div class="line"></div>
+    
+    <div class="settingTitle"><b>Email</b></div>
+    
+    <div class="settingformItem">
+    
+    <%= f.text_field :email %>
+    
+    </div>
+    
+    <div class="line"></div>
+    
+    <div class="settingTitle"><b>Password</b></div>
+    
+    <div class="settingformItem">
+    
+    <%= f.password_field :password %>
+    
+    </div>
+    
+    <div class="line"></div>
+    
+    <div class="settingTitle"><b>Password Confirmation</b></div>
+    
+    <div class="settingformItem">
+    
+    <%= f.password_field :password_confirmation %>
+    
+    </div>
+
+    <div class="line"></div>
+    
+    <div class="settingTitle"><b></b></div>
+    
+    <div class="settingformItem">
+    
+    <%= f.submit "Save changes", class: "" %>
+    
+    </div>
+        
+    </div>
+
+    </div>
+
+</div>
+
+      
+
+    
     <% end %>

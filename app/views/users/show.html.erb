@@ -1,7 +1,174 @@
 <% provide(:title, @user.name) %>
 
-<% if signed_in? %>
+<div class="sideDashboard side active">
 
-<%= @user.name %>, <%= @user.email %>
+    <div class="header"><i class="icon-double-angle-down"></i>Dashboard</div>
+    
+    <div class="alert"></div>
+    
+    <div class="dashboardMenu"></div>
+    
+    <div class="dashboardMenu">
 
-<% end %>
+    </div>
+
+    <div class="footer"></div>
+
+</div>
+
+<div class="sideNotes side">
+
+    <div class="header"><i class="icon-double-angle-down"></i>Notes</div>
+    
+    <div class="alert"></div>
+
+    <div class="noteSummary" id="1">
+    </div>
+    
+</div>
+
+<div class="sideReceipts side">
+
+    <div class="header"><i class="icon-double-angle-down"></i>Receipts</div>
+    
+    <div class="alert"></div>
+    
+    <div class="receiptSummary" id="1">
+    </div>
+    
+</div>
+
+<div class="sideInvoices side">
+
+    <div class="header"><i class="icon-double-angle-down"></i>Invoices</div>
+    
+    <div class="alert"></div>
+    
+    <div class="invoiceSummary" id="1">
+    </div>
+    
+</div>
+
+<div class="sideIncome side">
+
+    <div class="header"><i class="icon-double-angle-down"></i>Income</div>
+    
+    <div class="alert"></div>
+    
+    <div class="formContainer">
+    
+    <%= render 'incomes/form' %>
+
+    </div>
+
+    <div class="footer"></div>
+
+</div>
+
+<div class="sideExpenses side">
+
+    <div class="header"><i class="icon-double-angle-down"></i>Expenses</div>
+    
+    <div class="alert"></div>
+    
+    <div class="formContainer">
+    
+    <form>
+    
+    <input type="text" placeholder="Date"></input>
+    
+    <select>
+    <option value="" disabled selected>Expense Type</option>
+    <option>Fuel</option>
+    <option>Car</option>
+    <option>Marketing</option>
+    <option>Other</option>
+    </select>
+
+    <input type="text" placeholder="Amount"></input>  
+    
+        <textarea placeholder="Add notes here.."></textarea>
+    
+    <select>
+    <option value="" disabled selected>Select Payment Type</option>
+    <option>Cash</option>
+    <option>Credit</option>
+    <option>Card Payment</option>
+    <option>Cheque</option>
+    <option>Other</option>
+    <option>None</option>
+    </select>
+    
+    <input type="file" name="datafile" size="40">
+
+    <button>Submit</button>
+    <button class="cancel">Cancel</button>
+    
+    </form>
+
+    </div>
+
+    <div class="footer"></div>
+
+</div>
+
+<div class="sideClients side">
+
+    <div class="header"><i class="icon-double-angle-down"></i>Clients</div>
+    
+    <div class="alert"></div>
+
+    <div class="formContainer">
+    
+    <form>
+    
+    <input type="text" placeholder="Name"></input>
+
+    <input type="text" placeholder="House Name or Number"></input>
+    
+    <input type="text" placeholder="Postcode"></input>
+    
+    <input type="text" placeholder="Phone Number"></input>
+    
+    <input type="text" placeholder="Email"></input>
+    
+    <button>Submit</button>
+    <button class="cancel">Cancel</button>
+
+    </form>
+    
+    </div>
+
+    <div class="footer"></div>
+
+</div>
+
+<div class="sideReports side">
+
+    <div class="header"><i class="icon-double-angle-down"></i>Reports</div>
+    
+    <div class="alert"></div>
+
+    <div class="footer"></div>
+
+</div>
+
+<div class="sideBar">
+
+<i id="sideDashboard" class="icon-bar-chart sidebarItem active"><div class="tooltip">Dashboard</div></i>
+
+<i id="sideNotes" class="icon-edit sidebarItem"><div class="tooltip">Notes</div></i>
+
+<i id="sideReceipts" class="icon-folder-open-alt sidebarItem"><div class="tooltip">Receipts</div></i>
+
+<i id="sideInvoices" class="icon-envelope sidebarItem"><div class="tooltip">Invoices</div></i>
+
+<i id="sideIncome" class="icon-money sidebarItem"><div class="tooltip">Income</div></i>
+
+<i id="sideExpenses" class="icon-credit-card sidebarItem"><div class="tooltip">Expenses</div></i>
+
+<i id="sideClients" class="icon-group sidebarItem"><div class="tooltip">Clients</div></i>
+
+<i id="sideReports" class="icon-tasks sidebarItem"><div class="tooltip">Reports</div></i>
+
+</div>

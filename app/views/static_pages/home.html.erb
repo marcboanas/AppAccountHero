@@ -1,3 +1,13 @@
 <% provide(:title, 'Home') %>
 
+<% if signed_in? %>
+
+<%= current_user.clients %>
+
+<%= current_user.incomes %>
+
+<%= current_user.expenses %>
+
+<% end %>
+
 <%= link_to "Sign up", signup_path %>

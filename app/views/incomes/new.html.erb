@@ -1,0 +1,15 @@
+<%= form_for @income, :remote => false, :html => { :multipart => true } do |f| %>
+ 
+ <%= f.text_field :amount, :placeholder => "Amount" %>
+
+ <%= collection_select(:income, :client_id, Client.where(:user_id => current_user.id), :id, :id) %>
+
+ <%= @income.invoice.url %>
+ <%= image_tag @income.invoice.url(:medium) %>
+ <%= image_tag @income.invoice.url(:thumb) %>
+      
+ <%= f.file_field :invoice %>
+ 
+ <%= f.submit "Add Income", class: "" %>
+  
+<% end %>

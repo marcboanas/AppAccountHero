@@ -1,0 +1,4 @@
+<%= form_for @client, :remote => false, :html => { :class => '' } do |f| %>
+  <%= f.text_field :name, :placeholder => "Pupil Name" %>
+  <%= f.submit "Create New Client" %>
+<% end %>
