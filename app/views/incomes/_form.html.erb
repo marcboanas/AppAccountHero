@@ -1,32 +1,20 @@
 <% payments_types = [['Cash','Cash'],['Credit','Credit'],['Card Payment','Card Payment'],['Bank Transfer','Bank Transfer'],['Cheque','Cheque'],['Other','Other'],['None','None']] %>
 
-<%= form_for @income, :remote => false, :html => { :multipart => true } do |f| %>
+<%= form_for @income, :remote => true, :html => { :multipart => true } do |f| %>
     
-    <%= f.text_field :date, :placeholder => "Date" %>
+    <%= f.datepicker :date, :placeholder => "Date", :dateFormat => "yy-mm-dd" %>
     
-    <%= collection_select(:income, :client_id, Client.where(:user_id => current_user.id), :id, :name, {:prompt => 'Select Pupil', :include_blank => 'None'}) %>
+    <%= collection_select(:income, :client_id, Client.where("user_id = ? AND active = ?", current_user.id, true), :id, :name, {:prompt => 'Select Pupil', :include_blank => 'None'}) %>
     
     <%= f.text_field :amount, :placeholder => "Amount" %>
+    
+    <%= f.text_field :hours, :placeholder => "Lesson Length" %>
     
     <%= f.text_area :note, :placeholder => "Add notes here.." %>
     
     
     
     <%= f.select(:payment_type, options_for_select(payments_types), {:prompt => 'Select Payment Type'}) %>
-    
-    
-    <% if false %>
-    
-    <option value="" disabled selected>Select Payment Type</option>
-    <option>Cash</option>
-    <option>Credit</option>
-    <option>Card Payment</option>
-    <option>Cheque</option>
-    <option>Other</option>
-    <option>None</option>
-    </select>
-    
-    <% end %>
     
     <%= f.file_field :invoice %>
  

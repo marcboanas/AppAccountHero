@@ -1,0 +1,24 @@
+<% expenses_types = [['Fuel','Fuel'],['Car','Car'],['Marketing','Marketing'],['Other','Other']] %>
+
+<% payments_types = [['Cash','Cash'],['Credit','Credit'],['Card Payment','Card Payment'],['Bank Transfer','Bank Transfer'],['Cheque','Cheque'],['Other','Other'],['None','None']] %>
+
+
+<%= form_for @expense, :remote => true, :html => { :multipart => true } do |f| %>
+    
+    <%= f.datepicker :date, :placeholder => "Date", :dateFormat => "yy-mm-dd" %>
+    
+    <%= f.select(:expense_type, options_for_select(expenses_types), {:prompt => 'Select Expense Type'}) %>
+
+    <%= f.text_field :amount, :placeholder => "Amount" %>  
+    
+    <%= f.text_area :note, :placeholder => "Add notes here.." %>
+    
+    <%= f.select(:payment_type, options_for_select(payments_types), {:prompt => 'Select Payment Type'}) %>
+    
+    <%= f.file_field :receipt %>
+
+    <%= f.submit "Submit", class: "" %>
+    
+    <button class="cancel">Cancel</button>
+    
+<% end %>

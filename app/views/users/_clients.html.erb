@@ -1,0 +1,158 @@
+<div class="logoCircle"><i class="icon-group"></i></div>
+
+
+
+<% clientsActive = [] %>
+
+<% clients_nonactive = [] %>
+
+<% @clientlist.order('created_at DESC').each do |client| %>
+
+<% if client.active? %>
+
+<% clientsActive.push(client) %>
+
+<% else %>
+
+<% clients_nonactive.push(client) %>
+
+<% end %>
+
+<% end %>
+
+
+
+
+
+
+
+
+
+<h2 class="pageTitle">Clients (<%= @clientlist.count %>)</h2>
+
+<div class="pageFooter"></div>
+
+
+
+<div class="clientTable">
+
+<div class="client_table_row">Clients (Active) <i class="icon-group"></i></div>
+
+<div class="client_table_row">
+
+<div class="client_table_cell">Date <i class="icon-double-angle-up"></i></div>
+
+<div class="client_table_cell long">Name <i class="icon-double-angle-down"></i></div>
+
+<div class="client_table_cell short">Payments</div>
+
+<div class="client_table_cell">Total Payments <i class="icon-double-angle-down"></i></div>
+
+<div class="client_table_cell last"></div>
+
+</div>
+
+<% clientsActive.each do |client| %>
+
+<div class="client_table_row">
+
+<div class="client_table_cell"><%= client.created_at.strftime("%d %B %y") %></div>
+
+<div name="client_edit_link" class="client_table_cell long pointer blue" id="<%= client.id %>"><%= client.name %></div>
+
+<div class="client_table_cell short"><%= client.incomes.count %>
+
+</div>
+
+<% total_client_income =[0] %>
+
+<% client.incomes.each do |income| %>
+
+<% total_client_income.push(income.amount) %>
+
+<% end %>
+
+<div class="client_table_cell"><%= number_to_currency(total_client_income.inject{|sum,x| sum + x }, :unit => "&pound;", :separator => ".", :delimiter => ",") %></div>
+
+<div class="client_table_cell short last">
+
+<% if client.incomes.count == 0 %>
+
+<%= link_to "delete", client, method: :delete, :class => "blue", :remote => true,
+                                  data: { confirm: "You sure?" } %>
+                                  
+                                  
+<% end %>
+
+</div>
+
+</div>
+
+<% end %>
+
+</div>
+
+
+
+
+
+
+
+<div class="clientTable">
+
+<div class="client_table_row">Pupils (non-Active) <i class="icon-group"></i></div>
+
+<div class="client_table_row">
+
+<div class="client_table_cell">Date <i class="icon-double-angle-up"></i></div>
+
+<div class="client_table_cell long">Name <i class="icon-double-angle-down"></i></div>
+
+<div class="client_table_cell short">Payments</div>
+
+<div class="client_table_cell">Total Payments <i class="icon-double-angle-down"></i></div>
+
+<div class="client_table_cell last"></div>
+
+</div>
+
+<% clients_nonactive.each do |client| %>
+
+<div class="client_table_row">
+
+<div class="client_table_cell"><%= client.created_at.strftime("%d %B %y") %></div>
+
+<div name="client_edit_link" class="client_table_cell long pointer blue" id="<%= client.id %>"><%= client.name %></div>
+
+<div class="client_table_cell short"><%= client.incomes.count %>
+
+</div>
+
+<% total_client_income =[0] %>
+
+<% client.incomes.each do |income| %>
+
+<% total_client_income.push(income.amount) %>
+
+<% end %>
+
+<div class="client_table_cell"><%= number_to_currency(total_client_income.inject{|sum,x| sum + x }, :unit => "&pound;", :separator => ".", :delimiter => ",") %></div>
+
+<div class="client_table_cell short last">
+
+<% if client.incomes.count == 0 %>
+
+<%= link_to "delete", client, method: :delete, :class => "blue", :remote => true,
+                                  data: { confirm: "You sure?" } %>
+                                  
+                                  
+<% end %>
+
+</div>
+
+</div>
+
+<% end %>
+
+</div>
+

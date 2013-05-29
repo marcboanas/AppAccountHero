@@ -5,6 +5,9 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'will_paginate', '3.0.3'
 gem "paperclip", "~> 3.0"
 gem "font-awesome-rails"
+gem 'jquery_datepicker'
+gem "googlecharts", "~> 1.6.8"
+gem 'lazy_high_charts'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

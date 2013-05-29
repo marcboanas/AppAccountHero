@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
     before_filter :signed_in_user, only: [:new, :create, :destroy]
-    before_filter :correct_user,   only: :destroy
+    before_filter :correct_user,   only: [:destroy, :edit]
     
     def new
         @client = current_user.clients.build(params[:client])
@@ -10,11 +10,33 @@ class ClientsController < ApplicationController
         @client = current_user.clients.build(params[:client])
         if @client.save
             respond_to do |format|
-                format.html { redirect_to root_url }
+                format.html { redirect_to current_user }
                 format.js
             end
             else
-            render 'static_pages/home'
+            render current_user
+        end
+    end
+    
+    def client_edit
+        @client = Client.find(params[:id])
+        if @client.user_id == current_user.id
+        render :partial => 'clients/client_edit'
+        else
+        render current_user
+        end
+    end
+    
+    def edit
+      @client = Client.find(params[:id])
+    end
+    
+    def update
+        @client = Client.find(params[:id])
+        if @client.update_attributes(params[:client])
+            redirect_to current_user
+            else
+            redirect_to root_url
         end
     end
     

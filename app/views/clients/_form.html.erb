@@ -1,0 +1,19 @@
+    <%= form_for @client, :remote => true, :html => { :class => '' } do |f| %>
+    
+    <%= f.text_field :name, :placeholder => "Name" %>
+    
+    <%= f.text_field :house_number, :placeholder => "House Name or Number" %>
+    
+    <%= f.text_field :postcode, :placeholder => "Postcode" %>
+    
+    <%= f.text_field :phone_number, :placeholder => "Phone Number" %>
+    
+    <%= f.text_field :email, :placeholder => "Email" %>
+    
+    <%= f.text_area :notes, :placeholder => "Add notes here.." %>
+    
+    <%= f.submit "Submit" %>
+    
+    <button class="cancel">Cancel</button>
+
+    <% end %>

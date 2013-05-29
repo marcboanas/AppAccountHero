@@ -1,0 +1,445 @@
+<div class="logoCircle"><i class="icon-credit-card"></i></div>
+<div class="logoCircle left"><i class="icon-money"></i></div>
+
+<% if false %>
+    
+<div class="actionsBlock">
+        
+<i class="icon-print"> Print</i> | <i class="icon-file-alt"> Save as PDF</i> | <i class="icon-download-alt"> Export to Excel</i>
+        
+</div>
+
+<% end %>
+
+<div class="dateMain">Income & Expenses</div>
+
+<% if params[:date] %>
+
+<div class="dateMain light"><%= params[:date].to_date.strftime("%B %Y") %></div>
+
+<% else %>
+
+<div class="dateMain light">April 2013 - March 2014</div>
+
+<% end %>
+    
+<div class="table incomeTable">
+            
+<div class="tableRow">Income <i class="icon-money"></i></div>
+            
+<div class="tableRow">
+
+
+<% if params[:order] === "date " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "date ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Date <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "date DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Date <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+
+
+<% if params[:order] === "client_id " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "client_id ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell medium">Pupil <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "client_id DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell medium">Pupil <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+
+
+<div class="tableCell headerCell long">Notes</div>
+
+
+<% if params[:order] === "payment_type " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "payment_type ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Payment <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "payment_type DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Payment <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+
+
+<% if params[:order] === "amount " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "amount ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Amount <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "amount DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Amount <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+
+
+<div class="tableCell headerCell">Invoice</div>
+
+
+<div class="tableCell headerCell last">Select</div>
+
+
+</div>
+
+<%= form_tag destroy_multiple_incomes_path, :remote => true, method: :delete do %>
+
+<% if !params[:order] %>
+
+<% params[:order] = :date %>
+
+<% end %>
+
+<% @incomes.order(params[:order]).each do |income| %>
+            
+<div class="tableRow" name="<%= income.id %>">
+            
+<div class="tableCell">
+
+<%= link_to( edit_income_path(income) ) do %>
+
+<%= income.date.strftime("%b #{income.date.day.ordinalize}") %>
+
+<% end %>
+
+</div>
+
+<div name="client_edit_link" class="tableCell medium pointer blue" id="<%= income.client.id %>"><%= income.client.name %></div>
+
+<% if !income.note? %>
+
+<div class="tableCell long empty">no notes</div>
+
+<% else %>
+
+<div class="tableCell long"><%= income.note %></div>
+
+<% end %>
+
+<div class="tableCell"><%= income.payment_type %></div>
+
+<div class="tableCell"><%= number_to_currency(income.amount, :unit => "&pound;", :separator => ",", :delimiter => ",") %></div>
+            
+<div class="tableCell">
+
+<% if income.invoice_file_name.present? %>
+
+<i class="icon-envelope tableIcon"></i>
+
+<% end %>
+
+</div>
+
+<div class="tableCell last">
+
+<%= check_box_tag "incomes[]", income.id, :class=> 'tableCheckbox' %>
+
+<%= link_to( edit_income_path(income), :class => "blue") do %>
+
+Edit
+
+<% end %>
+
+</div>
+            
+</div>
+
+<% end %>
+            
+<div class="tableFooter">
+            
+<div class="tableCell"></div>
+
+<div class="tableCell medium"></div>
+
+<div class="tableCell long"></div>
+
+<div class="tableCell"></div>
+
+<div class="tableCell">
+
+<% totalIncome = [] %>
+
+ <% @incomes.each do |income| %>
+ 
+ <% totalIncome.push(income.amount) %>
+
+ <% end %>
+ 
+ <%= number_to_currency(totalIncome.inject{|sum,x| sum + x }, :unit => "&pound;", :separator => ".", :delimiter => ",") %>
+
+ </div>
+
+<div class="tableCell"></div>
+
+<div class="tableCell last">
+
+<%= button_tag(:type => 'submit', :class => 'tableButton', :onclick => "return confirm('Are you sure you wish to delete?')") do %>
+            <i class="icon-trash buttonIcon"> Delete</i>
+<% end %>
+
+<% end %>
+            
+</div>
+            
+</div>
+
+</div>
+        
+
+<div class="table expenseTable">
+            
+<div class="tableRow">Expenses <i class="icon-credit-card"></i></div>
+
+<div class="tableRow">
+            
+<% if params[:order] === "date " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "date ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Date <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "date DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Date <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+
+    
+<% if params[:order] === "client_id " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "client_id ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell medium">Expense Type <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "client_id DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell medium">Expense Type <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+            
+<div class="tableCell headerCell long">Notes</div>
+
+            
+<% if params[:order] === "payment_type " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "payment_type ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Payment <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "payment_type DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Payment <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+
+            
+<% if params[:order] === "amount " + "DESC" %>
+
+<%= link_to user_path(current_user, :order => "amount ASC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Amount <i class="icon-double-angle-down"></i></div>
+
+<% end %>
+
+<% else %>
+
+<%= link_to user_path(current_user, :order => "amount DESC", :display => "tables", :date => params[:date], :duration => params[:duration]) do %>
+
+<div class="tableCell headerCell">Amount <i class="icon-double-angle-up"></i></div>
+
+<% end %>
+
+<% end %> 
+
+
+<div class="tableCell headerCell">Receipt</div>
+
+<div class="tableCell headerCell last">Select</div>
+            
+</div>
+
+<%= form_tag destroy_multiple_expenses_path, :remote => true, method: :delete do %>
+
+<% if !@expenses.nil? %>
+
+<% if !params[:order] %>
+
+<% params[:order] = :date %>
+
+<% end %>
+
+<% if params[:order] == "client_id " + "DESC" %>
+
+<% params[:order] = "expense_type " + "ASC" %>
+
+<% end %>
+
+<% if params[:order] == "client_id " + "ASC" %>
+
+<% params[:order] = "expense_type " + "DESC" %>
+
+<% end %>
+
+<% @expenses.order(params[:order]).each do |expense| %>
+            
+<div class="tableRow" name="<%= expense.id %>">
+            
+<div class="tableCell"><%= expense.date.strftime("#{expense.date.day.ordinalize} %b") %></div>
+            
+<div class="tableCell medium"><%= expense.expense_type %></div>
+            
+<div class="tableCell long"><%= expense.note %></div>
+            
+<div class="tableCell"><%= expense.payment_type %></div>
+            
+<div class="tableCell"><%= number_to_currency(expense.amount, :unit => "&pound;", :separator => ".", :delimiter => ",") %></div>
+            
+<div class="tableCell">
+
+<% if expense.receipt_file_name? %>
+
+<i class="icon-folder-open-alt tableIcon"></i>
+
+<% end %>
+
+</div>
+
+<div class="tableCell last">
+
+<%= check_box_tag "expenses[]", expense.id, :class=> 'tableCheckbox' %>
+
+</div>
+            
+</div>
+
+<% end %>
+
+<% end %>
+            
+<div class="tableFooter">
+            
+<div class="tableCell"></div>
+
+<div class="tableCell medium"></div>
+
+<div class="tableCell long"></div>
+
+<div class="tableCell"></div>
+
+<div class="tableCell">
+
+<% totalExpense = [] %>
+
+<% @expenses.each do |expense| %>
+ 
+<% totalExpense.push(expense.amount) %>
+
+<% end %>
+ 
+<%= number_to_currency(totalExpense.inject{|sum,x| sum + x }, :unit => "&pound;", :separator => ",", :delimiter => ",") %>
+
+
+</div>
+
+<div class="tableCell"></div>
+
+<div class="tableCell last">
+
+<%= button_tag(:type => 'submit', :class => 'tableButton', :onclick => "return confirm('Are you sure you wish to delete?')") do %>
+            <i class="icon-trash buttonIcon"> Delete</i>
+<% end %>
+            
+<% end %>
+
+</div>
+            
+</div>
+
+</div>
+
+<div class="pageFooter"></div>
+
+<div class="controls">
+        
+<div class="date">
+
+<select name="forma" ONCHANGE="location = this.options[this.selectedIndex].value;">
+ <option value="<%= user_path(current_user) %>">Select a Date</option>
+ <option value="<%= user_path(current_user) + "?display=tables" %>">Full Year</option>
+ 
+ <% formDates = [] %>
+ <% start_date = ("2013-04-01").to_date %>
+ <% end_date = start_date + 1.year %>
+ 
+ <% number_of_months = (end_date.year*12+end_date.month)-(start_date.year*12+start_date.month) %>
+ 
+ <% dates = number_of_months.times.each_with_object([]) do |count, array| %>
+ <% array << [start_date.beginning_of_month + count.months,
+            start_date.end_of_month + count.months] %>
+ <% end %>
+ 
+ <% dates.each do |date| %>
+ 
+ <option value="<%= user_path(current_user) + "?date=" + date[0].strftime("%Y-%m-%d") + "&duration=30&display=tables"%>"><%= date[0].strftime("%b %Y") %></option>
+
+ <% end %>
+
+</select>
+
+</div>
+
+</div>

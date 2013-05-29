@@ -12,9 +12,124 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require highcharts
 //= require_tree .
 
 $(function() {
+  
+  $("[name='client_edit_link']").click(function() {
+                                       
+  var client_id = $(this).attr('id')
+                                       
+  $(".page").load('/client_edit?id=' + client_id, function(){
+                                                       
+  });
+                                       
+  });
+  
+  function GetURLParameter(sParam)
+  
+  {
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++)
+  {
+  var sParameterName = sURLVariables[i].split('=');
+  if (sParameterName[0] == sParam)
+  {
+  return sParameterName[1];
+  }
+  }
+  }
+  
+
+  $('.icon-tasks, a#sideDashboard').click(function() {
+                                            
+  $(".page").load('/dashboard', function(){
+                                                            
+  });
+                                            
+  });
+  
+  
+  $('.icon-bar-chart, a#sideReports').click(function() {
+  
+  $(".page").load('/graphs', function(){                  
+                  
+  });
+
+  });
+  
+  $('.icon-group, a#sideClients').click(function() {
+                             
+  $(".page").load('/clients', function(){
+                  
+  $("[name='client_edit_link']").click(function() {
+                                                       
+  var client_id = $(this).attr('id')
+                                                       
+  $(".page").load('/client_edit?id=' + client_id, function(){
+                                                       
+  });
+                                                       
+  });
+                                             
+  });
+                             
+  });
+  
+  
+  
+  $('.icon-credit-card, .icon-money, a#sideIncome, a#sideExpenses').click(function() {
+                               
+  if (GetURLParameter('date') && GetURLParameter('duration')) {
+                               
+  var date = GetURLParameter('date');
+                               
+  var duration = GetURLParameter('duration');
+                               
+  $(".page").load('/tables?date=' + date + '&duration=' + duration, function(){
+                  
+  $("[name='client_edit_link']").click(function() {
+                                       
+  var client_id = $(this).attr('id')
+                                       
+  $(".page").load('/client_edit?id=' + client_id, function(){
+                                                       
+  });
+                                       
+  });
+                                               
+  $('input[type=checkbox]').attr('checked', false);
+                
+  });
+                               
+  }
+                               
+  else {
+                               
+  $(".page").load('/tables', function(){
+                  
+                  
+  $("[name='client_edit_link']").click(function() {
+                                       
+  var client_id = $(this).attr('id')
+                                       
+  $(".page").load('/client_edit?id=' + client_id, function(){
+                                                       
+  });
+                                                       
+  });
+                                               
+  $('input[type=checkbox]').attr('checked', false);
+                  
+  });
+                               
+  }
+                         
+  });
+  
   
   $('.icon-edit.tableIcon').click(function() {
                                   
@@ -533,4 +648,30 @@ $(function() {
                                  
                                  });
   
-  });
+  
+  $('input[type=checkbox]').attr('checked', false);
+
+function GetURLParameter(sParam)
+
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++)
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam)
+        {
+            return sParameterName[1];
+        }
+    }
+}
+  
+var date = GetURLParameter('date');
+  
+  
+var duration = GetURLParameter('duration');
+  
+
+});
+
+

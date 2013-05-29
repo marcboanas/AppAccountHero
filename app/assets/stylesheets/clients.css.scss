@@ -1,0 +1,143 @@
+div.clientTable {
+width: 100%;
+height: auto;
+background: white;
+color: black;
+margin-bottom: 20px;
+padding-bottom: 30px;
+position: relative;
+display: block;
+}
+
+div.client_table_row {
+display: block;
+position: relative;
+width: 100%;
+height: 30px;
+line-height: 30px;
+text-align: center;
+font-family: caecilia-bold, helvetica, arial, sans-serif;
+font-size: 13px;
+color: black;
+background: white;
+border: 1px solid #b3b3b3;
+border-bottom: none;
+    i {
+    float: right;
+    margin-right: 20px;
+    line-height: 30px;
+    }
+    &.nonactive_client {
+    background: #f6fafc;
+    opacity: 0.99;
+    }
+}
+
+div.client_table_row:last-child {
+border-bottom: 1px solid #b3b3b3;
+}
+
+div.client_table_row:first-child {
+color: white;
+font-weight: bold;
+background: #39a32f;
+text-align: left;
+padding-left: 10px;
+width: 840px;
+}
+
+div.client_table_cell {
+text-align: center;
+border-right: 1px solid #b3b3b3;
+width: 200px;
+float: left;
+line-height: 30px;
+    &.long {
+    width: 230px;
+    }
+    &.last {
+    border-right: 0px;
+    }
+    &.short {
+    width: 90px;
+    }
+}
+
+div.clientSummary {
+height: 500px;
+width: 400px;
+background: none;
+position: absolute;
+top: 90px;
+left: 430px;
+}
+
+div.editForm {
+
+    width: 380px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #b3b3b3;
+    border-radius: 10px;
+    background: #f6fafc;
+    position: relative;
+
+    input {
+    display: block;
+    float: none;
+    width: 300px;
+    padding-right: 20px;
+    padding-left: 20px;
+    }
+    textarea {
+    margin-left: 20px;
+    width: 300px;
+    }
+    input[type=checkbox] {
+    margin-left: 0px;
+    margin-bottom: 20px;
+    display: inline;
+    width: 50px;
+    }
+    input[type=submit] {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 300px;
+    display: block;
+    margin-left: 20px;
+    }
+    
+}
+
+div.label {
+display: inline;
+margin-left: 20px;
+padding-left: 20px;
+width: 150px;
+}
+
+div.client_income_table {
+margin-top: 20px;
+width: 100%;
+height: auto;
+background: white;
+color: black;
+margin-bottom: 20px;
+padding-bottom: 30px;
+position: relative;
+display: block;
+}
+
+div.clientLabel {
+position: absolute;
+top: 0px;
+left: 100px;
+height: 80px;
+line-height: 80px;
+width: 300px;
+font-weight: bold;
+font-family: caecilia-bold, helvetica, arial, sans-serif;
+font-size: 16px;
+text-align: left;
+}
+

@@ -1,0 +1,168 @@
+<h2 class="pageTitle" id="<%= @client.id %>"><%= @client.name %></h2>
+
+<div class="pageFooter"></div>
+
+<div class="logoCircle"><i class="icon-user"></i></div>
+
+<div class="editForm">
+
+<%= form_for @client do |f| %>
+
+<%= f.text_field :name, :placeholder => "Name" %>
+
+<%= f.text_field :house_number, :placeholder => "House Number or Name" %>
+
+<%= f.text_field :postcode, :placeholder => "Postcode" %>
+
+<%= f.text_field :phone_number, :placeholder => "Phone Number" %>
+
+<%= f.text_field :email, :placeholder => "Email" %>
+
+<%= f.text_area :notes, :placeholder => "Add Notes Here.." %>
+
+<br/>
+
+<div class="label">This Pupil is currently active</div>
+
+<%= f.check_box :active %>
+
+<%= f.submit "Confirm Changes" %>
+
+<% end %>
+
+</div>
+
+<div class="client_income_table">
+
+<div class="client_table_row">Income <i class="icon-money"></i></div>
+
+
+<div class="client_table_row">
+
+<div class="client_table_cell">Date</div>
+
+<div class="client_table_cell">Amount</div>
+
+<div class="client_table_cell short">Lessons</div>
+
+<div class="client_table_cell">Payment Type</div>
+
+<div class="client_table_cell short last"></div>
+
+</div>
+
+<% totalIncome = [0] %>
+
+<% totalHours = [0] %>
+
+<% @client.incomes.each do |income| %>
+
+<% totalIncome.push(income.amount) %>
+
+<% totalHours.push(income.hours) %>
+
+<div class="client_table_row">
+
+<div class="client_table_cell"><%= income.date.strftime("%b #{income.date.day.ordinalize}") %></div>
+
+<div class="client_table_cell"><%= number_to_currency(income.amount, :unit => "&pound;", :separator => ",", :delimiter => ",") %></div>
+
+<div class="client_table_cell short">
+
+<% if income.hours %>
+
+<%= (income.hours).round %>
+
+<% else %>
+
+0
+
+<% end %>
+
+</div>
+
+<div class="client_table_cell"><%= income.payment_type %></div>
+
+
+<div class="client_table_cell short last">
+
+
+<%= link_to( edit_income_path(income) ) do %>
+
+edit
+
+<% end %>
+
+ / 
+
+<%= link_to "delete", income, method: :delete, :remote => true, data: { confirm: "Are you sure?" } %>
+
+</div>
+
+</div>
+
+<% end %>
+
+<div class="client_table_row">
+
+<div class="client_table_cell"><%= "-" %></div>
+
+<% totalIncome = number_to_currency(totalIncome.inject{|sum,x| sum + x }, :unit => "&pound;", :separator => ",", :delimiter => ",") %>
+
+<div class="client_table_cell"><%= totalIncome %></div>
+
+<% totalHours = totalHours.inject{|sum,x| sum + x }.round %>
+
+<div class="client_table_cell short"><%= totalHours %></div>
+
+<div class="client_table_cell"><%= "-" %></div>
+
+<div class="client_table_cell short last"><%= "-" %></div>
+
+</div>
+
+</div>
+
+<div class="clientSummary">
+
+<div class="circle">
+
+<%= totalIncome %>
+
+<div class="clientLabel">Total income</div>
+
+</div>
+
+<div class="circle">
+
+<%= totalHours %>
+
+<div class="clientLabel">Total number of lessons</div>
+
+</div>
+
+<% if @client.incomes.count > 0 %>
+
+<% clientDateLast = @client.incomes.order("Date DESC").first.date %>
+
+<% clientDateFirst = @client.incomes.order("Date ASC").first.date %>
+
+<div class="circle">
+
+<%= clientDateFirst.strftime("%b #{clientDateFirst.day.ordinalize}") %>
+
+<div class="clientLabel">First lesson</div>
+
+</div>
+
+<div class="circle">
+
+<%= clientDateLast.strftime("%b #{clientDateLast.day.ordinalize}") %>
+
+<div class="clientLabel">Last lesson</div>
+
+</div>
+
+<% end %>
+
+</div>

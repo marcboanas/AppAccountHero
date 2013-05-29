@@ -1,16 +1,19 @@
 class ExpensesController < ApplicationController
     
     before_filter :signed_in_user, only: [:new]
+    before_filter :correct_user,   only: [:edit, :update]
     
     def create
         @expense = current_user.expenses.build(params[:expense])
         if @expense.save
+            @incomes = current_user.incomes
+            @expenses = current_user.expenses
             respond_to do |format|
-                format.html { redirect_to root_url }
+                format.html { redirect_to current_user }
                 format.js { render }
             end
         else
-            redirect_to root_url
+            redirect_to current_user
         end
     end
     
@@ -22,6 +25,10 @@ class ExpensesController < ApplicationController
     
     def new
         @expense = current_user.expenses.build(params[:expense])
+    end
+    
+    def edit
+        @expense = Expense.find(params[:id])
     end
     
     respond_to :html, :json
@@ -41,5 +48,21 @@ class ExpensesController < ApplicationController
                 format.html { render :action => "edit" }
             end
         end
+    end
+    
+    def destroy_multiple
+        Expense.destroy(params[:expenses])
+        respond_to do |format|
+            format.html { redirect_to root_url }
+            format.js { render }
+            format.json { head :no_content }
+        end
+    end
+    
+    private
+    
+    def correct_user
+        @user = Expense.find(params[:id]).user
+        redirect_to(root_path) unless current_user?(@user)
     end
 end

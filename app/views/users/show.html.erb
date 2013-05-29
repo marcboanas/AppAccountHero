@@ -1,4 +1,4 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @user.name.titleize) %>
 
 <div class="sideDashboard side active">
 
@@ -6,11 +6,17 @@
     
     <div class="alert"></div>
     
+    <% if false %>
+    
     <div class="dashboardMenu"></div>
     
     <div class="dashboardMenu">
 
     </div>
+    
+    <% end %>
+    
+    <div class="sidelogoCircle"><i class="icon-tasks"></i></div>
 
     <div class="footer"></div>
 
@@ -53,11 +59,13 @@
 
     <div class="header"><i class="icon-double-angle-down"></i>Income</div>
     
-    <div class="alert"></div>
+    <div class="alert">Add new income using the form below.</div>
     
-    <div class="formContainer">
+    <div class="formContainer" id="incomeform">
     
     <%= render 'incomes/form' %>
+    
+    <div class="sidelogoCircle"><i class="icon-money"></i></div>
 
     </div>
 
@@ -69,42 +77,17 @@
 
     <div class="header"><i class="icon-double-angle-down"></i>Expenses</div>
     
-    <div class="alert"></div>
+    <div class="alert">Add new expenses using the form below.
+    
+    <div class="help">If you need help understanding what expenses you are eligable to claim for, click here.</div>
+    
+    </div>
     
     <div class="formContainer">
     
-    <form>
+    <%= render 'expenses/form' %>
     
-    <input type="text" placeholder="Date"></input>
-    
-    <select>
-    <option value="" disabled selected>Expense Type</option>
-    <option>Fuel</option>
-    <option>Car</option>
-    <option>Marketing</option>
-    <option>Other</option>
-    </select>
-
-    <input type="text" placeholder="Amount"></input>  
-    
-        <textarea placeholder="Add notes here.."></textarea>
-    
-    <select>
-    <option value="" disabled selected>Select Payment Type</option>
-    <option>Cash</option>
-    <option>Credit</option>
-    <option>Card Payment</option>
-    <option>Cheque</option>
-    <option>Other</option>
-    <option>None</option>
-    </select>
-    
-    <input type="file" name="datafile" size="40">
-
-    <button>Submit</button>
-    <button class="cancel">Cancel</button>
-    
-    </form>
+    <div class="sidelogoCircle"><i class="icon-credit-card"></i></div>
 
     </div>
 
@@ -116,26 +99,13 @@
 
     <div class="header"><i class="icon-double-angle-down"></i>Clients</div>
     
-    <div class="alert"></div>
+    <div class="alert">Add new clients using the form below.</div>
 
     <div class="formContainer">
     
-    <form>
+    <%= render 'clients/form' %>
     
-    <input type="text" placeholder="Name"></input>
-
-    <input type="text" placeholder="House Name or Number"></input>
-    
-    <input type="text" placeholder="Postcode"></input>
-    
-    <input type="text" placeholder="Phone Number"></input>
-    
-    <input type="text" placeholder="Email"></input>
-    
-    <button>Submit</button>
-    <button class="cancel">Cancel</button>
-
-    </form>
+    <div class="sidelogoCircle"><i class="icon-group"></i></div>
     
     </div>
 
@@ -145,9 +115,11 @@
 
 <div class="sideReports side">
 
-    <div class="header"><i class="icon-double-angle-down"></i>Reports</div>
+    <div class="header"><i class="icon-double-angle-down"></i>Charts & Graphs</div>
     
-    <div class="alert"></div>
+    <div class="alert"><div class="help">To better understad your business we have created graphs to display the performace of your business over the financial year.</div></div>
+    
+    <div class="sidelogoCircle"><i class="icon-bar-chart"></i></div>
 
     <div class="footer"></div>
 
@@ -155,7 +127,9 @@
 
 <div class="sideBar">
 
-<i id="sideDashboard" class="icon-bar-chart sidebarItem active"><div class="tooltip">Dashboard</div></i>
+<i id="sideDashboard" class="icon-tasks sidebarItem active"><div class="tooltip">Dashboard</div></i>
+
+<% if false %>
 
 <i id="sideNotes" class="icon-edit sidebarItem"><div class="tooltip">Notes</div></i>
 
@@ -163,12 +137,38 @@
 
 <i id="sideInvoices" class="icon-envelope sidebarItem"><div class="tooltip">Invoices</div></i>
 
+<% end %>
+
 <i id="sideIncome" class="icon-money sidebarItem"><div class="tooltip">Income</div></i>
 
 <i id="sideExpenses" class="icon-credit-card sidebarItem"><div class="tooltip">Expenses</div></i>
 
 <i id="sideClients" class="icon-group sidebarItem"><div class="tooltip">Clients</div></i>
 
-<i id="sideReports" class="icon-tasks sidebarItem"><div class="tooltip">Reports</div></i>
+<i id="sideReports" class="icon-bar-chart sidebarItem"><div class="tooltip">Graphs</div></i>
 
 </div>
+
+<div class="mainWindow">
+
+<div class="page">
+
+<% if params[:display] %>
+
+<%= render 'users/' + params[:display] %>
+
+<% else %>
+
+<%= render 'users/dashboard' %>
+
+<% end %>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="backtoTop"><i class="icon-arrow-up"></i></div>
+
+

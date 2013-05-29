@@ -1,10 +1,30 @@
 BaseApp::Application.routes.draw do
     
+    get 'tables', :controller => 'incomes', :action => :tables
+    
+    get 'dashboard', :controller => 'incomes', :action => :dashboard
+    
+    get 'clients', :controller => 'incomes', :action => :clients
+    
+    get 'client_edit', :controller => 'clients', :action => :client_edit
+    
+    get 'incomeform', :controller => 'incomes', :action => :incomeform
+    
+    get 'graphs', :controller => 'incomes', :action => :graphs
+    
     resources :users
     resources :sessions, only: [:new, :create, :destroy]
-    resources :incomes
+    resources :incomes do
+        collection do
+            delete :destroy_multiple
+        end
+    end
     resources :clients
-    resources :expenses
+    resources :expenses do
+        collection do
+            delete :destroy_multiple
+        end
+    end
     
     root :to => 'static_pages#home'
     match '/help',    to: 'static_pages#help'

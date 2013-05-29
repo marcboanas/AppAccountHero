@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506185024) do
+ActiveRecord::Schema.define(:version => 20130518224201) do
 
   create_table "clients", :force => true do |t|
     t.date     "date"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(:version => 20130506185024) do
     t.string   "phone_number"
     t.string   "email"
     t.integer  "user_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.boolean  "active",       :default => true
+    t.text     "notes"
   end
 
   create_table "expenses", :force => true do |t|
@@ -52,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20130506185024) do
     t.string   "invoice_content_type"
     t.integer  "invoice_file_size"
     t.datetime "invoice_updated_at"
+    t.float    "hours"
   end
 
   create_table "users", :force => true do |t|

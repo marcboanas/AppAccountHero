@@ -7,6 +7,23 @@ class UsersController < ApplicationController
   def show
       @user = User.find(params[:id])
       @income = Income.new(params[:income])
+      if params[:date] && params[:duration]
+          start_date = params[:date].to_date
+          end_date = start_date + (params[:duration].to_i).days
+          @incomes = current_user.incomes.where(:date => (start_date..end_date))
+          else
+          @incomes = current_user.incomes
+      end
+      @expense = Expense.new(params[:expense])
+      if params[:date] && params[:duration]
+          start_date = params[:date].to_date
+          end_date = start_date + (params[:duration].to_i).days
+          @expenses = current_user.expenses.where(:date => (start_date..end_date))
+          else
+          @expenses = current_user.expenses
+      end
+      @client = Client.new(params[:client])
+      @clientlist = current_user.clients
   end
     
   def index

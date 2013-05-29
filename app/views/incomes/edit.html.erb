@@ -1,0 +1,25 @@
+<% payments_types = [['Cash','Cash'],['Credit','Credit'],['Card Payment','Card Payment'],['Bank Transfer','Bank Transfer'],['Cheque','Cheque'],['Other','Other'],['None','None']] %>
+
+<%= form_for @income, :remote => false, :html => { :multipart => true } do |f| %>
+    
+    <%= f.text_field :date, :placeholder => "Date" %>
+    
+    <%= collection_select(:income, :client_id, Client.where(:user_id => current_user.id), :id, :name, {:prompt => 'Select Pupil', :include_blank => 'None'}) %>
+    
+    <%= f.text_field :amount, :placeholder => "Amount" %>
+    
+    <%= f.text_area :note, :placeholder => "Add notes here.." %>
+    
+    
+    
+    <%= f.select(:payment_type, options_for_select(payments_types), {:prompt => 'Select Payment Type'}) %>
+    
+    <%= f.file_field :invoice %>
+    
+    <%= image_tag @income.invoice.url %>
+ 
+    <%= f.submit "Submit", class: "" %>
+ 
+    <button class="cancel">Cancel</button>
+    
+<% end %>
